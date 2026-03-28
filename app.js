@@ -41,8 +41,34 @@ var cardBg
 
 function deletePost(){
   var card = event.target.parentNode.parentNode
-  card.remove()
+
+
+
+Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed){
+
+    card.remove()
+    
+    Swal.fire({
+    title: "Deleted!",
+    text: "Your file has been deleted.",
+    icon: "success"
+  });
 }
+});
+}
+
+
+
+
 // function editPost(){
 //     var card = event.target.parentNode.parentNode
 //     var title =card.children
@@ -50,6 +76,11 @@ function deletePost(){
 
 
 var editCard = null;
+
+
+
+
+
 
 function editPost(){
   var card = event.target.parentNode.parentNode;
@@ -64,8 +95,9 @@ function editPost(){
   document.getElementById("title").value = title;
   document.getElementById("description").value = description;
 
+  card.remove()
   // Save for update
-  editCard = card;
+//   editCard = card;
 
   console.log(title, description);
 }
@@ -131,7 +163,6 @@ function post(){
 function selectImg(src){
     cardBg = src
     console.log(src, event.target.classList);
-    // event.target.className += " selectedImg"
     var bgImg = document.getElementsByClassName("bg-img")
     for(var i = 0; i<bgImg.length; i++){
         console.log(bgImg[i].className);
